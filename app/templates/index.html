@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airport Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Airport Management System</h1>
+    <div id="functionality-grid">
+        <button onclick="loadFunctionality('viewAircraft')">View All Aircraft</button>
+        <button onclick="loadFunctionality('addAircraft')">Add Aircraft</button>
+        <button onclick="loadFunctionality('viewFlights')">View All Flights</button>
+        <button onclick="loadFunctionality('addFlight')">Add Flight</button>
+    </div>
+
+    <div id="content">
+        <!-- Table or form will be loaded here -->
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
