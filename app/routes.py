@@ -19,6 +19,10 @@ def insert():
 def search_flights():
     return render_template('search.html')
 
+@home_bp.route('/add_passenger')
+def add_passenger():
+    return render_template('add_passenger.html')
+
 api_bp = Blueprint('api', __name__)
 
 @api_bp.route('/api/')
@@ -57,21 +61,18 @@ def get_all_records(table_name):
 
 @api_bp.route('/api/into/<table_name>', methods=['POST'])
 def insert_into_table(table_name):
-    model = TABLE_MODELS.get(table_name.lower())
-    if not model:
+    data = request.get_json()
+
+    table_class = globals().get(table_name)
+    if table_class is None:
         return jsonify({"error": "Table not found"}), 404
 
-    data = request.get_json()
     try:
-        new_record = model(**data)
+        new_record = table_class(**data)
         db.session.add(new_record)
         db.session.commit()
         return jsonify(new_record.as_dict()), 201
-    except IntegrityError:
-        db.session.rollback()
-        return jsonify({"error": "IntegrityError - possible duplicate primary key or constraint violation"}), 400
     except Exception as e:
-        db.session.rollback()
         return jsonify({"error": str(e)}), 400
 
 @api_bp.route('/api/flights/search', methods=['GET'])
