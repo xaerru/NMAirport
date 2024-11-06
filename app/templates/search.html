@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Flights - Airport Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='search_flight.js') }}"></script>
+</head>
+<body>
+    <h1>Search Flights</h1>
+    <div id="search-flight-container">
+        <form id="searchFlightForm" onsubmit="searchFlight(event)">
+            <label for="source">Source:</label>
+            <input type="text" id="source" name="source" required><br>
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" required><br>
+            <button type="submit">Search Flight</button>
+        </form>
+    </div>
+    <div id="search-results">
+        <!-- Results will be displayed here -->
+    </div>
+</body>
+</html>

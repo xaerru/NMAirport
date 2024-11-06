@@ -15,6 +15,10 @@ def view_tables():
 def insert():
     return render_template('insert.html')
 
+@home_bp.route('/search_flights')
+def search_flights():
+    return render_template('search.html')
+
 api_bp = Blueprint('api', __name__)
 
 @api_bp.route('/api/')
@@ -69,6 +73,21 @@ def insert_into_table(table_name):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
+
+@api_bp.route('/api/flights/search', methods=['GET'])
+def search_flights():
+    source = request.args.get('source')
+    destination = request.args.get('destination')
+    
+    if not source or not destination:
+        return jsonify({"error": "Source and destination are required."}), 400
+
+    flights = Flight.query.filter(
+        Flight.Source.ilike(f"%{source}%"),
+        Flight.Destination.ilike(f"%{destination}%")
+    ).all()
+
+    return jsonify([flight.as_dict() for flight in flights])
 
 def as_dict(self):
     return {c.name: getattr(self, c.name) for c in self.__table__.columns}
