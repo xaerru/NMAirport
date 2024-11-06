@@ -23,6 +23,10 @@ def search_flights():
 def add_passenger():
     return render_template('add_passenger.html')
 
+@home_bp.route('/passengers_with_flights')
+def passenger_with_flight():
+    return render_template('passenger_with_flight.html')
+
 api_bp = Blueprint('api', __name__)
 
 @api_bp.route('/api/')
@@ -89,6 +93,27 @@ def search_flights():
     ).all()
 
     return jsonify([flight.as_dict() for flight in flights])
+
+@api_bp.route('/api/passengers_with_flights', methods=['GET'])
+def get_passengers_with_flights():
+    passengers = db.session.query(Passenger, Flight).join(Boards, Passenger.SeatNo == Boards.SeatNo).join(Flight, Boards.FlightNo == Flight.FlightNo).all()
+
+    result = []
+    for passenger, flight in passengers:
+        result.append({
+            'SeatNo': passenger.SeatNo,
+            'PName': passenger.PName,
+            'Class': passenger.Class,
+            'FlightNo': flight.FlightNo,
+            'FlightName': flight.FlightName,
+            'Source': flight.Source,
+            'Destination': flight.Destination,
+            'DeptTime': flight.DeptTime,
+            'ArrTime': flight.ArrTime,
+            'Duration': flight.Duration
+        })
+
+    return jsonify(result)
 
 def as_dict(self):
     return {c.name: getattr(self, c.name) for c in self.__table__.columns}
