@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Data - Airport Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='insert_script.js') }}"></script>
+</head>
+<body>
+    <h1>Insert Data into Tables</h1>
+    <div id="table-buttons">
+        <button onclick="loadInsertForm('Aircraft')">Add Aircraft</button>
+        <button onclick="loadInsertForm('Airline')">Add Airline</button>
+        <button onclick="loadInsertForm('Passenger')">Add Passenger</button>
+        <button onclick="loadInsertForm('Flight')">Add Flight</button>
+        <button onclick="loadInsertForm('IsOf')">Add IsOf</button>
+        <button onclick="loadInsertForm('Boards')">Add Boards</button>
+        <button onclick="loadInsertForm('Owns')">Add Owns</button>
+    </div>
+    <div id="form-container">
+        <!-- Dynamic form will be loaded here -->
+    </div>
+</body>
+</html>

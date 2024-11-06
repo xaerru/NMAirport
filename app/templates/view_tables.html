@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Tables - Airport Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>View Tables</h1>
+
+    <div id="table-buttons">
+        <button onclick="loadTable('aircraft')">View Aircraft</button>
+        <button onclick="loadTable('airline')">View Airline</button>
+        <button onclick="loadTable('passenger')">View Passenger</button>
+        <button onclick="loadTable('flight')">View Flight</button>
+    </div>
+
+    <div id="content"></div>
+
+    <script src="{{ url_for('static', filename='view_script.js') }}"></script>
+</body>
+</html>
